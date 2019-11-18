@@ -1,12 +1,12 @@
 <?php
 
 /*
-	Pehr Johansson
+	Yann LANGLOIS
 
 	File: qa-plugin/qa-category-email-notifications/qa-category-email-notifications-event.php
-	Version: 0.9
-	Date: 2013-02-21
-	Description: Event module class for category email notifications plugin
+	Version: 0.1
+	Date: 2019-11-18
+	Description: Event module class for category email notifications plugin compatible with external users
 */
 
 
@@ -22,7 +22,17 @@ class qa_category_email_notifications_event
                 switch ($event) {
                         case 'q_post':
 				$categoryid = $params['categoryid'];
-				$emails=qa_db_select_with_pending($this->qa_db_category_favorite_emails_selectspec($categoryid));
+				if(!QA_EXTERNAL_USERS){
+                    $emails=qa_db_select_with_pending($this->qa_db_category_favorite_emails_selectspec($categoryid));
+                }
+                else{
+                    $users=qa_db_select_with_pending($this->qa_db_category_favorite_users_selectspec($categoryid));
+                    $emails = [];
+                    for ($i = 0; $i < count($users); $i++)
+                    {
+                        $emails[] = ['email' => qa_get_user_email($users[$i]['userid'])];
+                    }
+                }
 
 				for ($i = 0; $i < count($emails); $i++)
 				{
@@ -57,6 +67,19 @@ class qa_category_email_notifications_event
                         'sortasc' => 'title',
                 );
         }
+    function qa_db_category_favorite_users_selectspec($categoryid)
+        /*
+        */
+    {
+        require_once QA_INCLUDE_DIR.'qa-app-updates.php';
+
+        return array(
+            'columns' => array('^userfavorites.userid'),
+            'source' => "^userfavorites WHERE ^userfavorites.entityid=$ AND ^userfavorites.entitytype=$",
+            'arguments' => array($categoryid, QA_ENTITY_CATEGORY),
+            'sortasc' => 'title',
+        );
+    }
         function category_email_notification_send_notification($bcclist, $email, $handle, $subject, $body, $subs)
 /*
 */

@@ -2,6 +2,8 @@ Description
 ===============================
 When a new question is asked in a category, this plugin will send an email notification to all users who marked the category as a favourite (star).  
 Plugin written for http://www.question2answer.org/.
+
+fork from [https://github.com/dunse/qa-category-email-notifications](https://github.com/dunse/qa-category-email-notifications)
   
   
 Prerequisites

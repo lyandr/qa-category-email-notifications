@@ -2,14 +2,14 @@
 
 /*
 	Plugin Name: Category Email Notifications
-	Plugin URI: https://github.com/dunse/qa-category-email-notifications
-	Plugin Description: Sends email for new questions, to users who favoritised the category where it was posted
-	Plugin Version: 0.9
-	Plugin Date: 2013-02-20
-	Plugin Author: Pehr Johansson
+	Plugin URI: https://github.com/lyandr/qa-category-email-notifications
+	Plugin Description: Sends email for new questions, to users who favoritised the category where it was posted (support qa_external_users)
+	Plugin Version: 0.1
+	Plugin Date: 2019-11-18
+	Plugin Author: Yann Langlois
 	Plugin Author URI: 
 	Plugin License: MIT License
-	Plugin Minimum Question2Answer Version: 1.5
+	Plugin Minimum Question2Answer Version: 1.8.0
 	Plugin Update Check URI: 
 */
 
